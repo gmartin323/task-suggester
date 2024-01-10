@@ -1,11 +1,12 @@
 import React from "react";
+import Todo from "./pages/todo";
 
 export default function App() {
   return (
       <div className="App">
-        <h1>Task Suggester</h1>
+        <h1>---</h1>
+        <Todo />
       </div>
   );
 }
 
-// this is the same as App.js in CRA
