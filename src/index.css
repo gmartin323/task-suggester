@@ -43,3 +43,16 @@ input[type=text]:focus ,textarea:focus{
   padding: 3rem;
 }
 
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.todoDeleteBtn {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  background-color: inherit;
+  border: none;
+}

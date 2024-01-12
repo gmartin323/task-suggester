@@ -6,7 +6,14 @@ import {
   deleteDoc,
   setDoc
 } from "firebase/firestore"
-import { todoCollection } from "../firebase";
+import { todoCollection, db } from "../firebase";
+
+// import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquareCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faSquare } from '@fortawesome/free-regular-svg-icons'
+
+
 
 // To-Do //
 
@@ -18,12 +25,12 @@ import { todoCollection } from "../firebase";
         // d. isCompleted: true/false -> toBeChanged when user clicks completed button
         // e. id: -> in order to identify when deleting/editing
 // III. Get data from database when page loads
-// IV. Delete from database when user compltes 'delete' action (icon click? / menu selection? / swipe and click icon?)  
+// IV. Delete from database when user completes 'delete' action (icon click? / menu selection? / swipe and click icon?)  
 // V. Allow user to edit todos in place -> property (contentEditable) on p element? ->
 
 export default function Todo() {
-  const [currentTodoText, setCurrentTodoText] = React.useState("")
   const [todos, setTodos] = React.useState([])
+  const [currentTodoText, setCurrentTodoText] = React.useState("")
 
   React.useEffect(() => {
     const unsubscribe = onSnapshot(todoCollection, function(snapshot) {
@@ -38,9 +45,49 @@ export default function Todo() {
 
   console.log(todos)
 
+  function toggleIsCompleted() {
+    // toggle isCompleted property of targeted todo item in firebase
+  }
+
+  async function deleteTodo(event) {
+    // console.log("dataset", event.target.dataset.delete)
+    const todoId = event.target.dataset.delete
+    const docRef = doc(db, "todo", todoId)
+    await deleteDoc(docRef)
+
+  }
+
   const todosEl = todos.map((todo) => {
     return (
-      <p /* contentEditable="true" */>{todo.text}</p>
+      <div className="todo" key={todo.id}>
+        {todo.isCompleted ? 
+          <FontAwesomeIcon 
+            icon={faSquareCheck} 
+            onClick={toggleIsCompleted}
+          /> : 
+          <FontAwesomeIcon 
+            icon={faSquare} 
+            onClick={toggleIsCompleted}
+          />
+        }
+        <p
+          /* contentEditable="true" */
+        >
+          {todo.text}
+        </p>
+        <button
+          className="todoDeleteBtn"
+          onClick={deleteTodo}
+          data-delete={todo.id}
+        >
+          {<FontAwesomeIcon 
+            icon={faTrashCan}
+            pointerEvents={"none"}
+            // onClick={deleteTodo}
+            // data-delete={todo.id}
+          />}
+        </button>
+      </div>
     )
   })
 
@@ -48,23 +95,18 @@ export default function Todo() {
     setCurrentTodoText(event.target.value)
   }
 
-  function addTodo() {
-    setTodos((prevTodos) => {
-      return [...prevTodos, currentTodoText]
-    })
-    setCurrentTodoText("")
-  }
-
   async function addNewTodo() {
-    const newTodo = {
-      text: currentTodoText,
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-      isCompleted: false,
-      // firebase will set an id when creating the document
+    if (currentTodoText !== "") {
+      const newTodo = {
+        text: currentTodoText,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        isCompleted: false,
+        // firebase will set an id when creating the document
+      }
+      await addDoc(todoCollection, newTodo)
+      setCurrentTodoText("")
     }
-    await addDoc(todoCollection, newTodo)
-    setCurrentTodoText("")
   }
 
   return (
