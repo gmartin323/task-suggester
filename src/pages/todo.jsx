@@ -53,8 +53,6 @@ export default function Todo() {
     return unsubscribe
   }, [])
 
-  console.log(todos)
-
   function updateCurrentTodoText(event) {
     setCurrentTodoText(event.target.value)
   }
@@ -88,24 +86,12 @@ export default function Todo() {
   }
 
   async function toggleIsCompleted() {
-    // toggle isCompleted property of targeted todo item in firebase
-    let todoId = event.target.dataset.checkbox
-    let docRef = doc(db, "todo" , todoId)
-    let docSnap = await getDoc(docRef)
-    let currentTodoData = docSnap.data()
-    // console.log(currentTodoData.isCompleted)
+    const todoId = event.target.dataset.checkbox
+    const docRef = doc(db, "todo" , todoId)
+    const docSnap = await getDoc(docRef)
+    const currentTodoData = docSnap.data()
     await setDoc(docRef, { isCompleted: !currentTodoData.isCompleted } , { merge: true })
-    // await setDoc(docRef, { isCompleted: !docSnap.data().isCompleted } , { merge: true })
-    // console.log(currentTodoData.isCompleted)
-
   }
-
-  // async function setIncomplete() {
-  //   // toggle isCompleted property of targeted todo item in firebase
-  //   const todoId = event.target.dataset.checkbox
-  //   const docRef = doc(db, "todo" , todoId)
-  //   await setDoc(docRef, { isCompleted: false } , { merge: true })
-  // }
 
   const todosEl = todos.map((todo) => {
     return (
