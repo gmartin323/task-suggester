@@ -43,18 +43,23 @@ export default function Todo() {
     return unsubscribe
   }, [])
 
-  console.log(todos)
-
   function toggleIsCompleted() {
     // toggle isCompleted property of targeted todo item in firebase
   }
 
   async function deleteTodo(event) {
-    // console.log("dataset", event.target.dataset.delete)
     const todoId = event.target.dataset.delete
     const docRef = doc(db, "todo", todoId)
     await deleteDoc(docRef)
+  }
 
+  async function updateTodo(event) {
+    const todoId = event.target.dataset.text
+    const newText = event.target.innerText
+    const docRef = doc(db, "todo" , todoId)
+    await setDoc(docRef,  { text: newText, updatedAt: Date.now()} , { merge: true })
+    // console.log("updated")
+    // console.log(event.target.innerText)
   }
 
   const todosEl = todos.map((todo) => {
@@ -71,7 +76,12 @@ export default function Todo() {
           />
         }
         <p
-          /* contentEditable="true" */
+          item={todo}
+          onBlur={updateTodo}
+          onKeyDown={() => {(event.key === 'Enter') ? event.target.blur() : null}}
+          data-text={todo.id}
+          contentEditable="true"
+          suppressContentEditableWarning
         >
           {todo.text}
         </p>
