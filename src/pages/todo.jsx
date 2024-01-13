@@ -8,12 +8,9 @@ import {
 } from "firebase/firestore"
 import { todoCollection, db } from "../firebase";
 
-// import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
-
-
 
 // To-Do //
 
@@ -27,10 +24,22 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons'
 // III. Get data from database when page loads
 // IV. Delete from database when user completes 'delete' action (icon click? / menu selection? / swipe and click icon?)  
 // V. Allow user to edit todos in place -> property (contentEditable) on p element? ->
+// VI. setFocus to input when page loads, when new todo is added and when todo is updated
+// vII. Allow user to toggle completed using icon click
 
 export default function Todo() {
   const [todos, setTodos] = React.useState([])
   const [currentTodoText, setCurrentTodoText] = React.useState("")
+
+  const inputRef = React.useRef()
+
+  React.useEffect(() => {
+    inputRef.current.focus()
+  }, [])
+
+  function focusInput() {
+    inputRef.current.focus()
+  }
 
   React.useEffect(() => {
     const unsubscribe = onSnapshot(todoCollection, function(snapshot) {
@@ -42,64 +51,6 @@ export default function Todo() {
     })
     return unsubscribe
   }, [])
-
-  function toggleIsCompleted() {
-    // toggle isCompleted property of targeted todo item in firebase
-  }
-
-  async function deleteTodo(event) {
-    const todoId = event.target.dataset.delete
-    const docRef = doc(db, "todo", todoId)
-    await deleteDoc(docRef)
-  }
-
-  async function updateTodo(event) {
-    const todoId = event.target.dataset.text
-    const newText = event.target.innerText
-    const docRef = doc(db, "todo" , todoId)
-    await setDoc(docRef,  { text: newText, updatedAt: Date.now()} , { merge: true })
-    // console.log("updated")
-    // console.log(event.target.innerText)
-  }
-
-  const todosEl = todos.map((todo) => {
-    return (
-      <div className="todo" key={todo.id}>
-        {todo.isCompleted ? 
-          <FontAwesomeIcon 
-            icon={faSquareCheck} 
-            onClick={toggleIsCompleted}
-          /> : 
-          <FontAwesomeIcon 
-            icon={faSquare} 
-            onClick={toggleIsCompleted}
-          />
-        }
-        <p
-          item={todo}
-          onBlur={updateTodo}
-          onKeyDown={() => {(event.key === 'Enter') ? event.target.blur() : null}}
-          data-text={todo.id}
-          contentEditable="true"
-          suppressContentEditableWarning
-        >
-          {todo.text}
-        </p>
-        <button
-          className="todoDeleteBtn"
-          onClick={deleteTodo}
-          data-delete={todo.id}
-        >
-          {<FontAwesomeIcon 
-            icon={faTrashCan}
-            pointerEvents={"none"}
-            // onClick={deleteTodo}
-            // data-delete={todo.id}
-          />}
-        </button>
-      </div>
-    )
-  })
 
   function updateCurrentTodoText(event) {
     setCurrentTodoText(event.target.value)
@@ -116,12 +67,59 @@ export default function Todo() {
       }
       await addDoc(todoCollection, newTodo)
       setCurrentTodoText("")
+      focusInput()
     }
   }
 
+  async function deleteTodo(event) {
+    const todoId = event.target.dataset.delete
+    const docRef = doc(db, "todo", todoId)
+    await deleteDoc(docRef)
+  }
+
+  async function updateTodo(event) {
+    const todoId = event.target.dataset.text
+    const newText = event.target.innerText
+    const docRef = doc(db, "todo" , todoId)
+    await setDoc(docRef,  { text: newText, updatedAt: Date.now()} , { merge: true })
+  }
+
+  function toggleIsCompleted() {
+    // toggle isCompleted property of targeted todo item in firebase
+  }
+
+  const todosEl = todos.map((todo) => {
+    return (
+      <div className="todo" key={todo.id}>
+        <FontAwesomeIcon 
+          icon={todo.isCompleted ? faSquareCheck : faSquare} 
+          onClick={toggleIsCompleted}
+        /> 
+        <p
+          onBlur={updateTodo}
+          onKeyDown={() => {(event.key === 'Enter') ? focusInput() : null}}
+          data-text={todo.id}
+          contentEditable="true"
+          suppressContentEditableWarning
+        >
+          {todo.text}
+        </p>
+        <button
+          className="todoDeleteBtn"
+          onClick={deleteTodo}
+          data-delete={todo.id}
+        >
+          {<FontAwesomeIcon 
+            icon={faTrashCan}
+            pointerEvents={"none"}
+          />}
+        </button>
+      </div>
+    )
+  })
+
   return (
     <div className="page-container">
-      <h1>To-do list</h1>
       <div className="todos-container">
         {todosEl}
       </div>
@@ -129,6 +127,7 @@ export default function Todo() {
         type="text"
         placeholder="Type here"
         name="new-todo-input"
+        ref={inputRef}
         value={currentTodoText}
         onChange={updateCurrentTodoText}
         onKeyDown={() => {(event.key === 'Enter') ? addNewTodo() : null}}
