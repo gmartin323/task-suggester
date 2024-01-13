@@ -49,6 +49,11 @@ input[type=text]:focus ,textarea:focus{
   gap: 1rem;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.todoCompleteBtn, 
 .todoDeleteBtn {
   display: flex;
   align-items: center;
