@@ -82,7 +82,7 @@ input[type=text]:focus ,textarea:focus{
 }
 
 .todo-text:focus {
-  border: 3px #6D53EE solid;
+  border: 3px #BDB4CF solid;
 }
 
 .strikethrough {
