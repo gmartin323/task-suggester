@@ -41,7 +41,7 @@ export default function Todo() {
   function focusInput() {
     inputRef.current.focus()
     window.scrollTo({
-      top: 400,
+      top: (inputRef.current.offsetTop + 100),
       behaviour: "smooth"
     })
   }
