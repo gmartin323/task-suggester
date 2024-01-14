@@ -153,6 +153,7 @@ export default function Todo() {
           <FontAwesomeIcon 
             icon={faPlus}
             pointerEvents={"none"}
+            style={currentTodoText.length > 0 ? {color: "#6D53EE"} : {color: "#BDB4CF"}}
           />
         </button>
       </div>
