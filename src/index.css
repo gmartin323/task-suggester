@@ -10,7 +10,7 @@
 
 html {
   font-family: 'Poppins',sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #020014;
   background-color: #F2F0FF;
 }
@@ -65,7 +65,7 @@ input[type=text]:focus ,textarea:focus{
   align-items: center;
   background-color: inherit;
   border: none;
-  margin: 0 auto;
+  margin: auto auto;
   font-size: 1.4rem;
   color: #6D53EE;
 }
