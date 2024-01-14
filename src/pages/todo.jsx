@@ -40,6 +40,10 @@ export default function Todo() {
 
   function focusInput() {
     inputRef.current.focus()
+    window.scrollTo({
+      top: inputRef.current.offsetTop,
+      behaviour: "smooth"
+    })
   }
 
   React.useEffect(() => {
