@@ -10,7 +10,7 @@ import {
 import { todoCollection, db } from "../firebase";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faSquareCheck, faTrashCan, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
 // To-Do //
@@ -97,7 +97,7 @@ export default function Todo() {
     return (
       <div className="todo" key={todo.id}>
         <button
-          className="todoCompleteBtn"
+          className="todo-complete-btn"
           onClick={toggleIsCompleted}
           data-checkbox={todo.id}
         >
@@ -107,7 +107,7 @@ export default function Todo() {
           /> 
         </button>
         <p
-          className={todo.isCompleted ? "strikethrough" : ""}
+          className={todo.isCompleted ? "strikethrough todo-text" : "todo-text"}
           onBlur={updateTodo}
           onKeyDown={() => {(event.key === 'Enter') ? focusInput() : null}}
           data-text={todo.id}
@@ -117,12 +117,14 @@ export default function Todo() {
           {todo.text}
         </p>
         <button
-          className="todoDeleteBtn"
+          className="todo-delete-btn"
+          
           onClick={deleteTodo}
           data-delete={todo.id}
         >
           {<FontAwesomeIcon 
-            icon={faTrashCan}
+            // icon={faTrashCan}
+            icon={faXmark}
             pointerEvents={"none"}
           />}
         </button>
@@ -135,16 +137,25 @@ export default function Todo() {
       <div className="todos-container">
         {todosEl}
       </div>
-      <input 
-        type="text"
-        placeholder="Type here"
-        name="new-todo-input"
-        ref={inputRef}
-        value={currentTodoText}
-        onChange={updateCurrentTodoText}
-        onKeyDown={() => {(event.key === 'Enter') ? addNewTodo() : null}}
-      />
-      <button onClick={addNewTodo}> Add + </button>
+      <div className="input-container">
+        <input 
+          type="text"
+          name="new-todo-input"
+          className="todo-input"
+          placeholder=". . ."
+          autoComplete="off"
+          ref={inputRef}
+          value={currentTodoText}
+          onChange={updateCurrentTodoText}
+          onKeyDown={() => {(event.key === 'Enter') ? addNewTodo() : null}}
+          />
+        <button onClick={addNewTodo} className="addTodoBtn">
+          <FontAwesomeIcon 
+            icon={faPlus}
+            pointerEvents={"none"}
+          />
+        </button>
+      </div>
     </div>
   )
 }
