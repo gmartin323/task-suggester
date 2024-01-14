@@ -9,10 +9,10 @@
 }
 
 html {
-  font-family: 'Poppins',sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.2rem;
   color: #020014;
-  background-color: #F2F0FF;
+  background-color: #F6F5FF;
 }
 
 body {
@@ -20,24 +20,20 @@ body {
   height: 100vh;
 }
 
-input,select {
-  font-family: 'Poppins',sans-serif;
-  color: #5c5b5b;
-  outline: none;
-}
-input[type=text]:focus ,textarea:focus{
-  outline: none !important;
-  border: 1px solid #555;
-  transition: .5s;
-}
-
 .page-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   max-width: 600px;
   margin: 0 auto;
   padding-top: 2rem;
+}
+
+.header {
+  font-size: 1rem;
+  margin-left: 4rem;
+  padding-left: 6px;
+  color: #BDB4CF;
 }
 
 .todos-container {
@@ -51,6 +47,7 @@ input[type=text]:focus ,textarea:focus{
   grid-template-columns: 4rem 1fr 4rem;
   grid-template-areas: "complete todo delete";
   text-align: left;
+  font-weight: bold;
 }
 
 .todo-complete-btn {
@@ -75,7 +72,7 @@ input[type=text]:focus ,textarea:focus{
 .todo-text {
   display: flex;
   align-items: center;
-  outline: none;
+  outline: transparent;
   border-radius: 12px;
   padding: 0 6px;
   margin: 4px 0;
@@ -96,22 +93,24 @@ input[type=text]:focus ,textarea:focus{
   grid-template-columns: 4rem 1fr 4rem;
   grid-template-areas: "todo todo add";
   padding-left: 4rem;
-  background-color: #F2F0FF;
+  background-color: #F6F5FF;
 }
 
 .todo-input {
   grid-area: todo;
   background-color: inherit;
   border: none;
-  outline: none !important;
+  outline: transparent !important;
   font-size: 1rem;
   padding: 0 6px;
   margin: 4px 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
 }
 
 .todo-input:focus {
-  outline: none !important;
-  border: 3px #6D53EE solid !important;
+  outline: transparent !important;
+  border: 3px #BDB4CF solid !important;
   border-radius: 12px;
   
 }

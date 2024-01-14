@@ -48,7 +48,8 @@ export default function Todo() {
         ...doc.data(),
         id: doc.id
       }))
-      setTodos(todoArr)
+      const sortedTodos = todoArr.sort((a, b) => a.createdAt - b.createdAt)
+      setTodos(sortedTodos)
     })
     return unsubscribe
   }, [])
@@ -134,6 +135,7 @@ export default function Todo() {
 
   return (
     <div className="page-container">
+      <h1 className="header">Today's tasks</h1>
       <div className="todos-container">
         {todosEl}
       </div>
@@ -142,7 +144,7 @@ export default function Todo() {
           type="text"
           name="new-todo-input"
           className="todo-input"
-          placeholder=". . ."
+          placeholder="New task..."
           autoComplete="off"
           ref={inputRef}
           value={currentTodoText}
