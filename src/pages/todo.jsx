@@ -28,6 +28,10 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons'
 // VI. setFocus to input when page loads, when new todo is added and when todo is updated
 // vII. Allow user to toggle completed using icon click
 
+// VIII. Refactor into smaller components.
+// IX. Debouncing updates -> see scrimba lessons -> (Unnecessary in this app as the database is not updated too often)
+// X. 
+
 export default function Todo() {
   const [todos, setTodos] = React.useState([])
   const [currentTodoText, setCurrentTodoText] = React.useState("")
@@ -40,10 +44,11 @@ export default function Todo() {
 
   function focusInput() {
     inputRef.current.focus()
-    window.scrollTo({
-      top: (inputRef.current.offsetTop - 180),
-      behaviour: "smooth"
-    })
+    // window.scrollTo({
+    //   top: (inputRef.current.offsetTop - 180),
+    //   behaviour: "smooth"
+    // })
+    inputRef.current.scrollIntoView({behavior: "smooth"}) // found better (?) method
   }
 
   React.useEffect(() => {
@@ -90,7 +95,7 @@ export default function Todo() {
     await setDoc(docRef,  { text: newText, updatedAt: Date.now()} , { merge: true })
   }
 
-  async function toggleIsCompleted() {
+  async function toggleIsCompleted(event) {
     const todoId = event.target.dataset.checkbox
     const docRef = doc(db, "todo" , todoId)
     const docSnap = await getDoc(docRef)
