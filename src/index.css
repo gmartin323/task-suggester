@@ -116,9 +116,17 @@ body {
   
 }
 
-.addTodoBtn {
+.add-todo-btn {
   grid-area: add;
   border: none;
   font-size: 1.4rem;
   background-color: inherit;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.disabled:hover {
+  cursor: initial;
 }

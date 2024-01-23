@@ -1,10 +1,10 @@
 import React from "react";
-import Todo from "./pages/todo";
+import TodoList from "./pages/TodoListPage";
 
 export default function App() {
   return (
       <div className="App">
-        <Todo />
+        <TodoList />
       </div>
   );
 }

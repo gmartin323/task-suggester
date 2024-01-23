@@ -1,4 +1,5 @@
 import React from "react";
+import SuggestedTask from "./SuggestedTaskPage";
 import {
   onSnapshot,
   addDoc,
@@ -30,10 +31,14 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
 // VIII. Refactor into smaller components.
 // IX. Debouncing updates -> see scrimba lessons -> (Unnecessary in this app as the database is not updated too often)
-// X. 
+// X. Create button/page that suggests a task from the list.
+//      a. Get task usiong random number and fetch from database -> save to currentTodo state (include id and content)
+//      b. Display task on full page -> include button to mark as complete
+//      c. When button is clicked, animate/style to show completion and change button to return to task list (clear currentTodo state?)
 
-export default function Todo() {
+export default function TodoList() {
   const [todos, setTodos] = React.useState([])
+  const [showSuggestedTask, setShowSuggestedTask] = React.useState(false)
   const [currentTodoText, setCurrentTodoText] = React.useState("")
 
   const inputRef = React.useRef()
@@ -103,6 +108,10 @@ export default function Todo() {
     await setDoc(docRef, { isCompleted: !currentTodoData.isCompleted } , { merge: true })
   }
 
+  function suggestTask() {
+    setShowSuggestedTask(true)
+  }
+
   const todosEl = todos.map((todo) => {
     return (
       <div className="todo" key={todo.id}>
@@ -142,9 +151,17 @@ export default function Todo() {
     )
   })
 
-  return (
+  const TodoListPage = (
     <div className="page-container">
       <h1 className="header">Today's tasks</h1>
+      {todos.length > 0 && 
+        <button 
+          className={"suggest-task"}
+          onClick={suggestTask}
+        >
+          Suggest Task
+        </button>
+      }
       <div className="todos-container">
         {todosEl}
       </div>
@@ -160,7 +177,10 @@ export default function Todo() {
           onChange={updateCurrentTodoText}
           onKeyDown={() => {(event.key === 'Enter') ? addNewTodo() : null}}
           />
-        <button onClick={addNewTodo} className="addTodoBtn">
+        <button 
+          onClick={addNewTodo}
+          className={currentTodoText.length > 0 ? "add-todo-btn" : "add-todo-btn disabled"}
+        >
           <FontAwesomeIcon 
             icon={faPlus}
             pointerEvents={"none"}
@@ -170,4 +190,54 @@ export default function Todo() {
       </div>
     </div>
   )
+
+  if (showSuggestedTask) {
+    return <SuggestedTask 
+      todos={todos}
+      setShowSuggestedTask={setShowSuggestedTask}
+    />
+  } else {
+    return TodoListPage
+  }
+  /* currentTask ? return <SuggestedTaskPage /> : return TodoListPage */
+
+  /* return (    
+    <div className="page-container">
+      <h1 className="header">Today's tasks</h1>
+      {todos.length > 0 && 
+        <button 
+          className={"suggest-task"}
+          onClick={suggestTask}
+        >
+          Suggest Task
+        </button>
+      }
+      <div className="todos-container">
+        {todosEl}
+      </div>
+      <div className="input-container">
+        <input 
+          type="text"
+          name="new-todo-input"
+          className="todo-input"
+          placeholder="New task..."
+          autoComplete="off"
+          ref={inputRef}
+          value={currentTodoText}
+          onChange={updateCurrentTodoText}
+          onKeyDown={() => {(event.key === 'Enter') ? addNewTodo() : null}}
+          />
+        <button 
+          onClick={addNewTodo}
+          className={currentTodoText.length > 0 ? "add-todo-btn" : "add-todo-btn disabled"}
+        >
+          <FontAwesomeIcon 
+            icon={faPlus}
+            pointerEvents={"none"}
+            style={currentTodoText.length > 0 ? {color: "#6D53EE"} : {color: "#BDB4CF"}}
+          />
+        </button>
+      </div>
+    </div>
+  ) */
 }
