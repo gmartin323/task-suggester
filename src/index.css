@@ -17,7 +17,6 @@ html {
 
 body {
   width: 100%;
-  height: 100vh;
 }
 
 .page-container {
@@ -48,6 +47,17 @@ body {
   grid-template-areas: "complete todo delete";
   text-align: left;
   font-weight: bold;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 100%;
+  outline: transparent;
+  border-radius: 12px;
+  margin: auto auto;
 }
 
 .todo-complete-btn {
@@ -94,6 +104,7 @@ body {
   grid-template-columns: 4rem 1fr 4rem;
   grid-template-areas: "todo todo add";
   padding-left: 4rem;
+  margin-bottom: 1rem;
   background-color: #F6F5FF;
 }
 
@@ -113,7 +124,6 @@ body {
   outline: transparent !important;
   border: 3px #BDB4CF solid !important;
   border-radius: 12px;
-  
 }
 
 .add-todo-btn {
@@ -121,6 +131,75 @@ body {
   border: none;
   font-size: 1.4rem;
   background-color: inherit;
+}
+
+.suggest-task-btn {
+  background-color: #6D53EE;
+  color: #F6F5FF;
+  width: 50%;
+  font-size: 1rem;
+}
+
+.suggested-task-page {
+  display: grid;
+  grid-template-rows: 7fr 3fr;
+  padding: 0.9rem;
+  /* min-height: 80vh; */
+  /* margin: 0 4rem; */
+}
+
+.task-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0 0.9rem 10vh 0.9rem;
+  font-size: 2rem;
+}
+
+.buttons-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr 0.9rem;
+  grid-template-rows: 2fr 1fr;
+  grid-template-areas: 
+  "complete complete complete complete"
+  "return next next .";
+  /* gap: 0rem 0.9rem; */
+}
+
+.complete-task-btn {
+  /* padding: 0 6px; */
+  /* margin: 4px auto; */
+  grid-area: complete;
+  width: 100%;
+  height: 5rem;
+  border-radius: 12px;
+  background-color: #6D53EE;
+  color: #F6F5FF;
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+
+.return-btn {
+  grid-area: return;
+  background-color: #F6F5FF;
+  color: #6D53EE;
+  /* display: flex; */
+  /* background-color: inherit; */
+  border: none;
+  /* justify-content: flex-start; */
+  /* padding-left: 0.9rem; */
+  font-size: 2.2rem;
+}
+
+.next-btn {
+  grid-area: next;
+  background-color: #6D53EE;
+  color: #F6F5FF;
+  opacity: 0.4;
+  font-size: 1rem;
+  margin-right: 1.8rem;
 }
 
 button:hover {

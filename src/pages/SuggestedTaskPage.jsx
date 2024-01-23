@@ -1,13 +1,11 @@
 import React from 'react'
 import shuffleArray from '../utilities/shuffleArray'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRectangleList } from '@fortawesome/free-regular-svg-icons'
+import { faAngleRight, faListCheck } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTask }) {
-
-  // X. Create button/page that suggests a task from the list.
-  //      a. Get task usiong random number and fetch from database -> save to currentTodo state (include id and content)
-  //      b. Display task on full page -> include button to mark as complete
-  //      c. When button is clicked, animate/style to show completion and change button to return to task list (clear currentTodo state?)
-  //      d. filter already completed tasks before shuffling
 
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [shuffledArray, setShuffledArray] = React.useState(shuffleArray(todos.filter((todo) => todo.isCompleted !== true)))
@@ -29,25 +27,33 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
   }
 
   return (
-    <div className='page-container'>
-      <h1>Suggested Task</h1>
-      <p className={shuffledArray[currentIndex].isCompleted ? "strikethrough" : ""}>{shuffledArray[currentIndex].text}</p>
-      <button
-        onClick={completeTask}
-        data-checkbox={shuffledArray[currentIndex].id}
-      >Complete</button> 
+    <div className='page-container suggested-task-page'>
+      <div className='task-container'>
+        <p className={shuffledArray[currentIndex].isCompleted ? "strikethrough" : ""}>{shuffledArray[currentIndex].text}</p>
+      </div>
       <div className='buttons-container'>
         <button
-          onClick={() => setShowSuggestedTask(false)}
+          onClick={completeTask}
+          data-checkbox={shuffledArray[currentIndex].id}
+          className='btn complete-task-btn'
         >
-          Return to list
+          Done!
+        </button> 
+        <button
+          onClick={() => setShowSuggestedTask(false)}
+          className="btn return-btn"
+        >
+          <FontAwesomeIcon icon={faListCheck} pointerEvents={"none"} />
         </button>
 
         {currentIndex !== (shuffledArray.length - 1) && 
           <button
-          onClick={() => setCurrentIndex((prevIndex) => prevIndex + 1)}
+            onClick={() => setCurrentIndex((prevIndex) => prevIndex + 1)}
+            className="btn next-btn"
           >
-            Next
+            <FontAwesomeIcon icon={faAngleRight} />
+            <FontAwesomeIcon icon={faAngleRight} />
+            <FontAwesomeIcon icon={faAngleRight} />
           </button>
         }
       </div>

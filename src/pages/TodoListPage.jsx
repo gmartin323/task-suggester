@@ -11,7 +11,7 @@ import {
 import { todoCollection, db } from "../firebase";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareCheck, faTrashCan, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faSquareCheck, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
 // To-Do //
@@ -154,14 +154,7 @@ export default function TodoList() {
   const TodoListPage = (
     <div className="page-container">
       <h1 className="header">Today's tasks</h1>
-      {todos.length > 0 && 
-        <button 
-          className={"suggest-task"}
-          onClick={suggestTask}
-        >
-          Suggest Task
-        </button>
-      }
+      
       <div className="todos-container">
         {todosEl}
       </div>
@@ -188,6 +181,14 @@ export default function TodoList() {
           />
         </button>
       </div>
+      {todos.length > 0 && 
+        <button 
+          className={"suggest-task-btn btn"}
+          onClick={suggestTask}
+        >
+          Let's go!
+        </button>
+      }
     </div>
   )
 
