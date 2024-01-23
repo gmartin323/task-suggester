@@ -194,50 +194,10 @@ export default function TodoList() {
   if (showSuggestedTask) {
     return <SuggestedTask 
       todos={todos}
+      completeTodo={toggleIsCompleted}
       setShowSuggestedTask={setShowSuggestedTask}
     />
   } else {
     return TodoListPage
   }
-  /* currentTask ? return <SuggestedTaskPage /> : return TodoListPage */
-
-  /* return (    
-    <div className="page-container">
-      <h1 className="header">Today's tasks</h1>
-      {todos.length > 0 && 
-        <button 
-          className={"suggest-task"}
-          onClick={suggestTask}
-        >
-          Suggest Task
-        </button>
-      }
-      <div className="todos-container">
-        {todosEl}
-      </div>
-      <div className="input-container">
-        <input 
-          type="text"
-          name="new-todo-input"
-          className="todo-input"
-          placeholder="New task..."
-          autoComplete="off"
-          ref={inputRef}
-          value={currentTodoText}
-          onChange={updateCurrentTodoText}
-          onKeyDown={() => {(event.key === 'Enter') ? addNewTodo() : null}}
-          />
-        <button 
-          onClick={addNewTodo}
-          className={currentTodoText.length > 0 ? "add-todo-btn" : "add-todo-btn disabled"}
-        >
-          <FontAwesomeIcon 
-            icon={faPlus}
-            pointerEvents={"none"}
-            style={currentTodoText.length > 0 ? {color: "#6D53EE"} : {color: "#BDB4CF"}}
-          />
-        </button>
-      </div>
-    </div>
-  ) */
 }

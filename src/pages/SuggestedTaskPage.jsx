@@ -1,20 +1,41 @@
 import React from 'react'
 import shuffleArray from '../utilities/shuffleArray'
 
-export default function SuggestedTask({ todos, setShowSuggestedTask }) {
+export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTask }) {
 
   // X. Create button/page that suggests a task from the list.
   //      a. Get task usiong random number and fetch from database -> save to currentTodo state (include id and content)
   //      b. Display task on full page -> include button to mark as complete
   //      c. When button is clicked, animate/style to show completion and change button to return to task list (clear currentTodo state?)
+  //      d. filter already completed tasks before shuffling
 
   const [currentIndex, setCurrentIndex] = React.useState(0)
-  const [shuffledArray, setShuffledArray] = React.useState(shuffleArray(todos))
+  const [shuffledArray, setShuffledArray] = React.useState(shuffleArray(todos.filter((todo) => todo.isCompleted !== true)))
+
+  console.log("shuffledArr", shuffledArray)
+
+  function completeTask(event) {
+    const currentTaskId = event.target.dataset.checkbox
+
+    setShuffledArray(shuffledArray.map(task => {
+      if (task.id === currentTaskId) {
+        return {...task, isCompleted: !task.isCompleted}
+      } else {
+        return task
+      }
+    }))
+
+    completeTodo(event)
+  }
 
   return (
     <div className='page-container'>
       <h1>Suggested Task</h1>
-      <p>{shuffledArray[currentIndex].text}</p> 
+      <p className={shuffledArray[currentIndex].isCompleted ? "strikethrough" : ""}>{shuffledArray[currentIndex].text}</p>
+      <button
+        onClick={completeTask}
+        data-checkbox={shuffledArray[currentIndex].id}
+      >Complete</button> 
       <div className='buttons-container'>
         <button
           onClick={() => setShowSuggestedTask(false)}
@@ -22,9 +43,9 @@ export default function SuggestedTask({ todos, setShowSuggestedTask }) {
           Return to list
         </button>
 
-        {currentIndex !== (todos.length - 1) && 
+        {currentIndex !== (shuffledArray.length - 1) && 
           <button
-          onClick={() => setCurrentIndex((prev) => prev+1)}
+          onClick={() => setCurrentIndex((prevIndex) => prevIndex + 1)}
           >
             Next
           </button>
