@@ -150,16 +150,26 @@ body {
 
 .task-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding:0 0.9rem 10vh 0.9rem;
-  font-size: 2rem;
+  flex-direction: column;
+  text-align: center;
+  padding: 0.9rem;
+  font-size: 1.6rem;
+  border: 3px #BDB4CF solid;
+  border-radius: 12px;
+}
+
+.task-name {
+  margin: auto;
+}
+
+.task-tracker {
+  font-size: 1rem;
 }
 
 .buttons-container {
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr 1fr 0.9rem;
+  grid-template-columns: 1fr 1fr 1fr 1.8rem;
   grid-template-rows: 2fr 1fr;
   grid-template-areas: 
   "complete complete complete complete"
@@ -185,12 +195,37 @@ body {
   grid-area: return;
   background-color: #F6F5FF;
   color: #6D53EE;
-  /* display: flex; */
+  display: flex;
   /* background-color: inherit; */
   border: none;
-  /* justify-content: flex-start; */
+  justify-content: center;
   /* padding-left: 0.9rem; */
-  font-size: 2.2rem;
+  font-size: 2rem;
+  /* outline: 1px red solid; */
+  position: relative;
+}
+
+.fa-stack[data-count]:not([data-count=""]):not([data-count="0"]):after{
+  position: absolute;
+  right: 7.5%;
+  top: 9%;
+  content: attr(data-count);
+  font-size: 0.6rem;
+  border-radius: 999px;
+  border: 2px solid #F6F5FF;
+  line-height: 1.25rem;
+  color: white;
+  background:rgba(255,0,0);
+  text-align: center;
+  height: 1.4rem;
+  width: 1.4rem;
+  font-weight:bold;
+} 
+
+.return-icon {
+  /* color: inherit;
+  position: relative; */
+  font-size: 3rem;
 }
 
 .next-btn {
@@ -199,7 +234,6 @@ body {
   color: #F6F5FF;
   opacity: 0.4;
   font-size: 1rem;
-  margin-right: 1.8rem;
 }
 
 button:hover {
