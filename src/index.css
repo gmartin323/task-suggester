@@ -22,7 +22,6 @@ body {
 .page-container {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   max-width: 600px;
   margin: 0 auto;
   padding: 1rem 0;
@@ -33,11 +32,6 @@ body {
   margin-left: 4rem;
   padding-left: 6px;
   color: #BDB4CF;
-}
-
-.todos-container {
-  width: 100%;
-  
 }
 
 .todo {
@@ -55,9 +49,11 @@ body {
   align-items: center;
   height: 3rem;
   width: 100%;
-  outline: transparent;
   border-radius: 12px;
   margin: auto auto;
+  background-color: #6D53EE;
+  font-family: 'Shrikhand', serif;
+  font-size: 1rem;
 }
 
 .todo-complete-btn {
@@ -72,11 +68,11 @@ body {
 .todo-delete-btn {
   display: flex;
   align-items: center;
-  background-color: inherit;
   border: none;
   margin: auto auto;
-  font-size: 1.4rem;
+  background-color: inherit;
   color: #6D53EE;
+  font-size: 1.4rem;
 }
 
 .todo-text {
@@ -104,8 +100,8 @@ body {
   grid-template-columns: 4rem 1fr 4rem;
   grid-template-areas: "todo todo add";
   padding-left: 4rem;
-  margin-bottom: 1rem;
-  background-color: #F6F5FF;
+  margin-bottom: 1.6rem;
+  background-color: inherit;
 }
 
 .todo-input {
@@ -134,7 +130,6 @@ body {
 }
 
 .suggest-task-btn {
-  background-color: #6D53EE;
   color: #F6F5FF;
   width: 50%;
   font-size: 1rem;
@@ -144,8 +139,6 @@ body {
   display: grid;
   grid-template-rows: 7fr 3fr;
   padding: 0.9rem;
-  /* min-height: 80vh; */
-  /* margin: 0 4rem; */
 }
 
 .task-container {
@@ -153,13 +146,14 @@ body {
   flex-direction: column;
   text-align: center;
   padding: 0.9rem;
-  font-size: 1.6rem;
   border: 3px #BDB4CF solid;
   border-radius: 12px;
 }
 
 .task-name {
   margin: auto;
+  font-size: 1.6rem;
+  font-weight: bold;
 }
 
 .task-tracker {
@@ -181,19 +175,17 @@ body {
   /* padding: 0 6px; */
   /* margin: 4px auto; */
   grid-area: complete;
-  width: 100%;
   height: 5rem;
   border-radius: 12px;
-  background-color: #6D53EE;
   color: #F6F5FF;
-  font-size: 1.4rem;
+  font-size: 2rem;
   margin-bottom: 0.6rem;
 }
 
 
 .return-btn {
   grid-area: return;
-  background-color: #F6F5FF;
+  background-color: inherit;
   color: #6D53EE;
   display: flex;
   /* background-color: inherit; */
@@ -206,34 +198,39 @@ body {
 }
 
 .fa-stack[data-count]:not([data-count=""]):not([data-count="0"]):after{
-  position: absolute;
-  right: 7.5%;
-  top: 9%;
   content: attr(data-count);
-  font-size: 0.6rem;
-  border-radius: 999px;
+  position: absolute;
+  right: 15%;
+  top: 12%;
+  height: 1.2rem;
+  width: 1.2rem;
   border: 2px solid #F6F5FF;
-  line-height: 1.25rem;
+  border-radius: 999px;
   color: white;
   background:rgba(255,0,0);
-  text-align: center;
-  height: 1.4rem;
-  width: 1.4rem;
-  font-weight:bold;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Changa One', sans-serif;
+  font-size: 0.8rem;
+  line-height: 0.9rem;
 } 
 
 .return-icon {
   /* color: inherit;
   position: relative; */
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .next-btn {
   grid-area: next;
-  background-color: #6D53EE;
   color: #F6F5FF;
-  opacity: 0.4;
+  opacity: 0.7;
   font-size: 1rem;
+}
+
+.all-tasks-complete {
+  background-color: gold;
+  color: #020014;
+  opacity: 1;
 }
 
 button:hover {
@@ -243,3 +240,50 @@ button:hover {
 .disabled:hover {
   cursor: initial;
 }
+
+/* COMPLETE BANNER */
+
+
+.ribbon {
+  position: absolute;
+  left: -5px; top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 100px; height: 100px;
+  text-align: right;
+}
+
+.ribbon span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  width: 120px;
+  display: block;
+  background: #FFD700;
+  color: black;
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 30px; left: -23px;
+  font-family: 'Shrikhand', sans-serif;
+}
+
+/* 
+
+buttons share:
+
+  font-family: 'Shrikhand', serif;
+  border-radius: 12px;
+  centered - 
+    display: flex 
+    justify-content: center
+  background-color: #6D53EE
+  color: #F6F5FF
+  font-size: 1rem
+
+
+*/

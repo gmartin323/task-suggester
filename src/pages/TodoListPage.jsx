@@ -112,6 +112,8 @@ export default function TodoList() {
     setShowSuggestedTask(true)
   }
 
+  const incompleteTasks = todos.filter(todo => todo.isCompleted === false).length
+
   const todosEl = todos.map((todo) => {
     return (
       <div className="todo" key={todo.id}>
@@ -152,9 +154,11 @@ export default function TodoList() {
   })
 
   const TodoListPage = (
-    <div className="page-container">
+    <div className="page-container ">
+      {/* {incompleteTasks === 0 && 
+        <div className="ribbon"><span>Complete!</span></div>
+     } */}
       <h1 className="header">Today's tasks</h1>
-      
       <div className="todos-container">
         {todosEl}
       </div>
@@ -181,13 +185,16 @@ export default function TodoList() {
           />
         </button>
       </div>
-      {todos.length > 0 && 
+      {todos.length > 0 && incompleteTasks !== 0 ? 
         <button 
           className={"suggest-task-btn btn"}
           onClick={suggestTask}
         >
           Let's go!
         </button>
+        :
+        
+        null
       }
     </div>
   )
@@ -195,6 +202,7 @@ export default function TodoList() {
   if (showSuggestedTask) {
     return <SuggestedTask 
       todos={todos}
+      incompleteTasks={incompleteTasks}
       completeTodo={toggleIsCompleted}
       setShowSuggestedTask={setShowSuggestedTask}
     />

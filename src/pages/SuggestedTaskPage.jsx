@@ -1,22 +1,20 @@
 import React from 'react'
 import shuffleArray from '../utilities/shuffleArray'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle, faRectangleList } from '@fortawesome/free-regular-svg-icons'
-import { faAngleRight, faListCheck, faUndo, faRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import { faRectangleList } from '@fortawesome/free-regular-svg-icons'
+import { faAngleRight, faListCheck, faRotateLeft, faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTask }) {
+export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTask, incompleteTasks }) {
 
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [shuffledArray, setShuffledArray] = React.useState(getShuffledIncompleteTasksArray(todos))
-
-  console.log("shuffledArr", shuffledArray)
 
   function getShuffledIncompleteTasksArray(arr) {
     return shuffleArray(arr.filter((todo) => todo.isCompleted !== true))
   }
 
-  function completeTask(event) {
+  function toggleCompleteTask(event) {
     const currentTaskId = event.target.dataset.checkbox
 
     setShuffledArray(shuffledArray.map(task => {
@@ -26,31 +24,33 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
         return task
       }
     }))
-
     completeTodo(event)
   }
 
-  const incompleteTasks = todos.filter(todo => todo.isCompleted === false).length
   
+
+
 
   function resetSuggestions() {
     setCurrentIndex(0)
     setShuffledArray(getShuffledIncompleteTasksArray(todos))
   }
 
+  const currentTask = shuffledArray[currentIndex]
+
   return (
     <div className='page-container suggested-task-page'>
       <div className='task-container'>
-        <p className={shuffledArray[currentIndex].isCompleted ? "strikethrough task-name" : "task-name"}>{shuffledArray[currentIndex].text}</p>
+        <p className={currentTask.isCompleted ? "strikethrough task-name" : "task-name"}>{currentTask.text}</p>
         <p className="task-tracker">{currentIndex + 1} / {shuffledArray.length}</p>
       </div>
       <div className='buttons-container'>
         <button
-          onClick={completeTask}
-          data-checkbox={shuffledArray[currentIndex].id}
+          onClick={toggleCompleteTask}
+          data-checkbox={currentTask.id}
           className='btn complete-task-btn'
         >
-          {shuffledArray[currentIndex].isCompleted === false ? "Done!" : "Undo"}
+          {currentTask.isCompleted ? <FontAwesomeIcon icon={faArrowRotateLeft} pointerEvents={"none"} /> : "Done!"}
         </button> 
         <button
           onClick={() => setShowSuggestedTask(false)}
@@ -68,21 +68,26 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
           </span>
         </button>
 
-        {currentIndex !== (shuffledArray.length - 1) ? 
-          <button
-            className="btn next-btn"
-            onClick={() => setCurrentIndex((prevIndex) => prevIndex + 1)}
+        {incompleteTasks === 0 ?
+          <div
+            className="btn next-btn all-tasks-complete"
           >
-            <FontAwesomeIcon icon={faAngleRight} />
-            <FontAwesomeIcon icon={faAngleRight} />
-            <FontAwesomeIcon icon={faAngleRight} />
-          </button>
+            All Tasks Complete!
+          </div>
           :
+        currentIndex === (shuffledArray.length - 1) ?
           <button
             className="btn next-btn"
             onClick={resetSuggestions}
           >
             Let's go again
+          </button>
+          :
+          <button
+            className="btn next-btn"
+            onClick={() => setCurrentIndex((prevIndex) => prevIndex + 1)}
+          >
+            Next Task
           </button>
         }
       </div>
