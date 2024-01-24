@@ -93,6 +93,10 @@ body {
   text-decoration: line-through;
 }
 
+.lower-opacity {
+  opacity: 0.3;
+}
+
 .input-container {
   display: grid;
   width: 100%;
@@ -142,18 +146,32 @@ body {
 }
 
 .task-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: center;
   padding: 0.9rem;
   border: 3px #BDB4CF solid;
   border-radius: 12px;
+  
 }
 
 .task-name {
   margin: auto;
   font-size: 1.6rem;
   font-weight: bold;
+}
+
+.medal-img {
+  position: absolute;
+  margin-left: 50vw;
+  top: 15.2rem;
+  display: cover;
+  height: 8rem;
+  width: 8rem;
+  align-self: last baseline;
+  /* margin-top: 0rem; */
+  z-index: 1;
 }
 
 .task-tracker {

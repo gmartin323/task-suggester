@@ -3,12 +3,15 @@ import shuffleArray from '../utilities/shuffleArray'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRectangleList } from '@fortawesome/free-regular-svg-icons'
 import { faAngleRight, faListCheck, faRotateLeft, faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import medalImg from '../images/tick-medal.png';
 
 
 export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTask, incompleteTasks }) {
 
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [shuffledArray, setShuffledArray] = React.useState(getShuffledIncompleteTasksArray(todos))
+
+  // const medalImg = require('src\assets\tick-medal.png')
 
   function getShuffledIncompleteTasksArray(arr) {
     return shuffleArray(arr.filter((todo) => todo.isCompleted !== true))
@@ -41,7 +44,11 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
   return (
     <div className='page-container suggested-task-page'>
       <div className='task-container'>
-        <p className={currentTask.isCompleted ? "strikethrough task-name" : "task-name"}>{currentTask.text}</p>
+        <p className={currentTask.isCompleted ? "lower-opacity task-name" : "task-name"}>{currentTask.text}</p>       
+        {currentTask.isCompleted ? 
+          <img src={medalImg} alt='medal image' className='medal-img'/>
+          : null
+        }
         <p className="task-tracker">{currentIndex + 1} / {shuffledArray.length}</p>
       </div>
       <div className='buttons-container'>
