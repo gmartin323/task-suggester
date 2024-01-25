@@ -2,7 +2,7 @@ import React from 'react'
 import shuffleArray from '../utilities/shuffleArray'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRectangleList } from '@fortawesome/free-regular-svg-icons'
-import { faAngleRight, faListCheck, faRotateLeft, faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import { faAngleRight, faListCheck, faRotateLeft, faArrowRotateLeft, faCircle, faCircleDot } from '@fortawesome/free-solid-svg-icons'
 import medalImg from '../images/tick-medal.png';
 
 
@@ -10,8 +10,9 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
 
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [shuffledArray, setShuffledArray] = React.useState(getShuffledIncompleteTasksArray(todos))
+  const currentTask = shuffledArray[currentIndex]
+  const totalTasks = shuffledArray.length
 
-  // const medalImg = require('src\assets\tick-medal.png')
 
   function getShuffledIncompleteTasksArray(arr) {
     return shuffleArray(arr.filter((todo) => todo.isCompleted !== true))
@@ -30,16 +31,22 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
     completeTodo(event)
   }
 
-  
-
-
-
   function resetSuggestions() {
     setCurrentIndex(0)
     setShuffledArray(getShuffledIncompleteTasksArray(todos))
   }
 
-  const currentTask = shuffledArray[currentIndex]
+  const dotsEl = (
+    <div className='dotsContainer'>
+      {shuffledArray.map((task, index) => {
+        if (index === currentIndex) {
+          return <FontAwesomeIcon icon={faCircle} className = "dot" />
+        } else {
+          return <FontAwesomeIcon icon={faCircleDot} className = "dot" />
+        }
+      })}
+    </div>
+  )
 
   return (
     <div className='page-container suggested-task-page'>
@@ -49,7 +56,7 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
           <img src={medalImg} alt='medal image' className='medal-img'/>
           : null
         }
-        <p className="task-tracker">{currentIndex + 1} / {shuffledArray.length}</p>
+        {dotsEl}
       </div>
       <div className='buttons-container'>
         <button
