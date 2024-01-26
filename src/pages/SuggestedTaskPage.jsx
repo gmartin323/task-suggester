@@ -6,10 +6,11 @@ import { faListCheck,faArrowRotateLeft, faCircle, faCircleDot } from '@fortaweso
 import medalImg from '../images/tick-medal.png';
 
 
-export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTask, incompleteTasks }) {
+export default function SuggestedTask({ todos, toggleIsCompleted, setShowSuggestedTask, incompleteTasks }) {
 
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [shuffledArray, setShuffledArray] = React.useState(getShuffledIncompleteTasksArray(todos))
+
   const currentTask = shuffledArray[currentIndex]
 
   function getShuffledIncompleteTasksArray(arr) {
@@ -26,7 +27,7 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
         return task
       }
     }))
-    completeTodo(event)
+    toggleIsCompleted(event)
   }
 
   function resetSuggestions() {
@@ -38,9 +39,9 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
     <div className='dotsContainer'>
       {shuffledArray.map((task, index) => {
         if (index === currentIndex) {
-          return <FontAwesomeIcon icon={faCircle} className = "dot" />
+          return <FontAwesomeIcon icon={faCircle} className = "dot" key={task.id}/>
         } else {
-          return <FontAwesomeIcon icon={faCircleDot} className = "dot" />
+          return <FontAwesomeIcon icon={faCircleDot} className = "dot" key={task.id}/>
         }
       })}
     </div>
