@@ -3,19 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
-/* props needed 
-
-todo
-toggleIsCompleted
-updateTodo
-focusInput
-deleteTodo
-
-*/
-
 export default function Task({todo, toggleIsCompleted, updateTodo, focusInput, deleteTodo}) {
-
-  
 
   return (
     <div className="todo" key={todo.id}>
@@ -45,10 +33,10 @@ export default function Task({todo, toggleIsCompleted, updateTodo, focusInput, d
           onClick={deleteTodo}
           data-delete={todo.id}
         >
-          {<FontAwesomeIcon
+          <FontAwesomeIcon
             icon={faXmark}
             pointerEvents={"none"}
-          />}
+          />
         </button>
       </div>
   )
