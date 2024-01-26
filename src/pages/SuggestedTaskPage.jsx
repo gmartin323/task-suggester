@@ -2,7 +2,7 @@ import React from 'react'
 import shuffleArray from '../utilities/shuffleArray'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRectangleList } from '@fortawesome/free-regular-svg-icons'
-import { faAngleRight, faListCheck, faRotateLeft, faArrowRotateLeft, faCircle, faCircleDot } from '@fortawesome/free-solid-svg-icons'
+import { faListCheck,faArrowRotateLeft, faCircle, faCircleDot } from '@fortawesome/free-solid-svg-icons'
 import medalImg from '../images/tick-medal.png';
 
 
@@ -11,8 +11,6 @@ export default function SuggestedTask({ todos, completeTodo, setShowSuggestedTas
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [shuffledArray, setShuffledArray] = React.useState(getShuffledIncompleteTasksArray(todos))
   const currentTask = shuffledArray[currentIndex]
-  const totalTasks = shuffledArray.length
-
 
   function getShuffledIncompleteTasksArray(arr) {
     return shuffleArray(arr.filter((todo) => todo.isCompleted !== true))

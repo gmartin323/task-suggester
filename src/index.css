@@ -4,7 +4,7 @@
 *::before,
 *::after {
   margin: 0;
-  padding:0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -41,6 +41,7 @@ body {
   grid-template-areas: "complete todo delete";
   text-align: left;
   font-weight: bold;
+  position: relative;
 }
 
 .btn {
@@ -87,14 +88,6 @@ body {
 
 .todo-text:focus {
   border: 3px #BDB4CF solid;
-}
-
-.strikethrough {
-  text-decoration: line-through;
-}
-
-.lower-opacity {
-  opacity: 0.3;
 }
 
 .input-container {
@@ -153,7 +146,6 @@ body {
   padding: 0.9rem;
   border: 3px #BDB4CF solid;
   border-radius: 12px;
-  
 }
 
 .task-name {
@@ -163,19 +155,14 @@ body {
 }
 
 .medal-img {
-  position: absolute;
-  margin-left: 50vw;
-  top: 15.2rem;
   display: cover;
+  position: absolute;
+  top: 15.2rem;
+  margin-left: 50vw;
+  align-self: last baseline;
   height: 8rem;
   width: 8rem;
-  align-self: last baseline;
-  /* margin-top: 0rem; */
   z-index: 1;
-}
-
-.task-tracker {
-  font-size: 1rem;
 }
 
 .dotsContainer {
@@ -189,7 +176,6 @@ body {
 
 .dot {
   font-size: 0.5rem;
-  
 }
 
 .buttons-container {
@@ -200,12 +186,9 @@ body {
   grid-template-areas: 
   "complete complete complete complete"
   "return next next .";
-  /* gap: 0rem 0.9rem; */
 }
 
 .complete-task-btn {
-  /* padding: 0 6px; */
-  /* margin: 4px auto; */
   grid-area: complete;
   height: 5rem;
   border-radius: 12px;
@@ -220,12 +203,9 @@ body {
   background-color: inherit;
   color: #6D53EE;
   display: flex;
-  /* background-color: inherit; */
   border: none;
   justify-content: center;
-  /* padding-left: 0.9rem; */
   font-size: 2rem;
-  /* outline: 1px red solid; */
   position: relative;
 }
 
@@ -247,21 +227,20 @@ body {
 } 
 
 .return-icon {
-  /* color: inherit;
-  position: relative; */
   font-size: 2.5rem;
 }
 
 .next-btn {
   grid-area: next;
   color: #F6F5FF;
-  opacity: 0.7;
+  background-color: rgb(109, 83, 238, 0.7);
+  /* opacity: 0.7; */
   font-size: 1rem;
 }
 
 .all-tasks-complete {
-  background-color: gold;
-  color: #020014;
+  background-color: inherit;
+  color: #6D53EE;
   opacity: 1;
 }
 
@@ -273,49 +252,6 @@ button:hover {
   cursor: initial;
 }
 
-/* COMPLETE BANNER */
-
-
-.ribbon {
-  position: absolute;
-  left: -5px; top: -5px;
-  z-index: 1;
-  overflow: hidden;
-  width: 100px; height: 100px;
-  text-align: right;
+.lower-opacity {
+  opacity: 0.5;
 }
-
-.ribbon span {
-  font-size: 10px;
-  font-weight: bold;
-  color: #FFF;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 20px;
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  width: 120px;
-  display: block;
-  background: #FFD700;
-  color: black;
-  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 30px; left: -23px;
-  font-family: 'Shrikhand', sans-serif;
-}
-
-/* 
-
-buttons share:
-
-  font-family: 'Shrikhand', serif;
-  border-radius: 12px;
-  centered - 
-    display: flex 
-    justify-content: center
-  background-color: #6D53EE
-  color: #F6F5FF
-  font-size: 1rem
-
-
-*/

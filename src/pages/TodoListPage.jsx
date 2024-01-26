@@ -14,28 +14,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareCheck, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
-// To-Do //
-
-// I. Save to database collection in addTodo function
-// II. Each item needs: 
-        // a. text content
-        // b. createdAt time using Date.now()
-        // c. updatedAt time using Date.now()
-        // d. isCompleted: true/false -> toBeChanged when user clicks completed button
-        // e. id: -> in order to identify when deleting/editing
-// III. Get data from database when page loads
-// IV. Delete from database when user completes 'delete' action (icon click? / menu selection? / swipe and click icon?)  
-// V. Allow user to edit todos in place -> property (contentEditable) on p element? ->
-// VI. setFocus to input when page loads, when new todo is added and when todo is updated
-// vII. Allow user to toggle completed using icon click
-
-// VIII. Refactor into smaller components.
-// IX. Debouncing updates -> see scrimba lessons -> (Unnecessary in this app as the database is not updated too often)
-// X. Create button/page that suggests a task from the list.
-//      a. Get task usiong random number and fetch from database -> save to currentTodo state (include id and content)
-//      b. Display task on full page -> include button to mark as complete
-//      c. When button is clicked, animate/style to show completion and change button to return to task list (clear currentTodo state?)
-
 export default function TodoList() {
   const [todos, setTodos] = React.useState([])
   const [showSuggestedTask, setShowSuggestedTask] = React.useState(false)
@@ -128,7 +106,7 @@ export default function TodoList() {
           /> 
         </button>
         <p
-          className={todo.isCompleted ? "strikethrough todo-text" : "todo-text"}
+          className={todo.isCompleted ? "todo-text lower-opacity" : "todo-text"}
           onBlur={updateTodo}
           onKeyDown={() => {(event.key === 'Enter') ? focusInput() : null}}
           data-text={todo.id}
