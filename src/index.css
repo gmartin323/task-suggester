@@ -24,7 +24,7 @@ body {
   flex-direction: column;
   max-width: 600px;
   margin: 0 auto;
-  padding: 1rem 0;
+  padding-top: 1rem;
 }
 
 .header {
@@ -135,9 +135,8 @@ body {
 }
 
 .suggested-task-page {
-  display: grid;
-  grid-template-rows: 7fr 3fr;
   padding: 0.9rem;
+  height: 100vh;
 }
 
 .task-container {
@@ -148,6 +147,8 @@ body {
   padding: 0.9rem;
   border: 3px #BDB4CF solid;
   border-radius: 12px;
+  flex-grow: 1;
+  /* margin: auto; */
 }
 
 .task-name {
