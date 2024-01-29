@@ -1,5 +1,5 @@
 import React from 'react'
-import Task from './task'
+import Task from './Task'
 
 export default function TaskList( { todos, updateTodo, deleteTodo, toggleIsCompleted, setIsTaskBeingEdited, focusInput } ) {
 
