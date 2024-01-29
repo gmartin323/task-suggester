@@ -244,7 +244,9 @@ body {
 .all-tasks-complete {
   background-color: inherit;
   color: #6D53EE;
+  text-align: center;
   opacity: 1;
+  border: 1px red solid;
 }
 
 button:hover {
