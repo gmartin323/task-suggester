@@ -10,6 +10,7 @@ export default function Task({todo, toggleIsCompleted, setIsTaskBeingEdited, upd
     <div className="todo" key={todo.id}>
         <button
           className="todo-complete-btn"
+          aria-label='Complete Task'
           onClick={toggleIsCompleted}
           data-checkbox={todo.id}
         >
@@ -31,6 +32,7 @@ export default function Task({todo, toggleIsCompleted, setIsTaskBeingEdited, upd
         </p>
         <button
           className="todo-delete-btn"
+          aria-label='Delete Task'
           onClick={deleteTodo}
           data-delete={todo.id}
         >
