@@ -1,9 +1,10 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faSquareCheck, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
-export default function Task({todo, toggleIsCompleted, updateTodo, focusInput, deleteTodo}) {
+export default function Task({todo, toggleIsCompleted, setIsTaskBeingEdited, updateTodo, focusInput, deleteTodo}) {
+  
 
   return (
     <div className="todo" key={todo.id}>
@@ -20,6 +21,7 @@ export default function Task({todo, toggleIsCompleted, updateTodo, focusInput, d
         <p
           className={todo.isCompleted ? "todo-text lower-opacity" : "todo-text"}
           onBlur={updateTodo}
+          onClick={() => setIsTaskBeingEdited(true)}
           onKeyDown={() => {(event.key === 'Enter') ? focusInput() : null}}
           data-text={todo.id}
           contentEditable="true"
@@ -29,7 +31,6 @@ export default function Task({todo, toggleIsCompleted, updateTodo, focusInput, d
         </p>
         <button
           className="todo-delete-btn"
-          
           onClick={deleteTodo}
           data-delete={todo.id}
         >

@@ -9,17 +9,15 @@ import {
 } from "firebase/firestore"
 import { todoCollection, db } from "../firebase";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
 export default function TaskListPage( { todos, toggleIsCompleted, incompleteTasks, setShowSuggestedTask }) {
   const [currentTodoText, setCurrentTodoText] = React.useState("")
+  const [isTaskBeingEdited, setIsTaskBeingEdited] = React.useState(false)
 
   const inputRef = React.useRef()
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     inputRef.current.focus()
-  }, [])
+  }, []) */
 
   function focusInput() {
     inputRef.current.focus()
@@ -50,6 +48,7 @@ export default function TaskListPage( { todos, toggleIsCompleted, incompleteTask
   }
 
   async function updateTodo(event) {
+    setIsTaskBeingEdited(false)
     const todoId = event.target.dataset.text
     const newText = event.target.innerText
     const docRef = doc(db, "todo" , todoId)
@@ -73,6 +72,7 @@ export default function TaskListPage( { todos, toggleIsCompleted, incompleteTask
         todos={todos}
         focusInput={focusInput}
         toggleIsCompleted={toggleIsCompleted}
+        setIsTaskBeingEdited={setIsTaskBeingEdited}
         updateTodo={updateTodo}
         deleteTodo={deleteTodo}
       />
@@ -86,20 +86,36 @@ export default function TaskListPage( { todos, toggleIsCompleted, incompleteTask
           ref={inputRef}
           value={currentTodoText}
           onChange={updateCurrentTodoText}
-          onKeyDown={() => {(event.key === 'Enter') ? addNewTodo() : null}}
+          onKeyDown={() => {(event.key === 'Enter') && currentTodoText.trim() ? addNewTodo() : null}}
           />
-        <button 
+        {/* <button 
           onClick={addNewTodo}
-          className={currentTodoText.length > 0 ? "add-todo-btn" : "add-todo-btn disabled"}
+          className={currentTodoText ? "add-todo-btn" : "add-todo-btn disabled"}
         >
           <FontAwesomeIcon 
             icon={faPlus}
             pointerEvents={"none"}
-            style={currentTodoText.length > 0 ? {color: "#6D53EE"} : {color: "#BDB4CF"}}
+            style={currentTodoText ? {color: "#6D53EE"} : {color: "#BDB4CF"}}
           />
-        </button>
+        </button> */}
       </div>
-      {todos.length > 0 && incompleteTasks !== 0 ? 
+      {currentTodoText.trim() ? 
+        <button
+          onClick={addNewTodo}
+          className='add-task-btn btn'
+        >
+          Add Task
+        </button>
+        :
+      isTaskBeingEdited ? 
+        <button
+          onClick={updateTodo}
+          className='add-task-btn btn'
+        >
+          Update Task
+        </button>
+        :
+      todos.length > 0 && incompleteTasks !== 0 ? 
         <button 
           className={"suggest-task-btn btn"}
           onClick={suggestTask}
@@ -107,7 +123,6 @@ export default function TaskListPage( { todos, toggleIsCompleted, incompleteTask
           Let's go!
         </button>
         :
-        
         null
       }
     </div>

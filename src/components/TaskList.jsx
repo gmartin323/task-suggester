@@ -1,7 +1,7 @@
 import React from 'react'
-import Task from './Task'
+import Task from './task'
 
-export default function TaskList( { todos, updateTodo, deleteTodo, toggleIsCompleted, focusInput } ) {
+export default function TaskList( { todos, updateTodo, deleteTodo, toggleIsCompleted, setIsTaskBeingEdited, focusInput } ) {
 
   return (
     <div className="todos-container">
@@ -13,6 +13,7 @@ export default function TaskList( { todos, updateTodo, deleteTodo, toggleIsCompl
             updateTodo={updateTodo}
             deleteTodo={deleteTodo}
             toggleIsCompleted={toggleIsCompleted}
+            setIsTaskBeingEdited={setIsTaskBeingEdited}
             focusInput={focusInput}
           />
         )

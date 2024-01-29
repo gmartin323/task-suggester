@@ -5,7 +5,6 @@ import { faRectangleList } from '@fortawesome/free-regular-svg-icons'
 import { faListCheck,faArrowRotateLeft, faCircle, faCircleDot } from '@fortawesome/free-solid-svg-icons'
 import medalImg from '../images/tick-medal.png';
 
-
 export default function SuggestedTask({ todos, toggleIsCompleted, setShowSuggestedTask, incompleteTasks }) {
 
   const [currentIndex, setCurrentIndex] = React.useState(0)

@@ -1,13 +1,13 @@
 import React from "react";
-import TaskListPage from "./TaskListPage";
-import SuggestedTask from "./SuggestedTaskPage";
+import TaskListPage from "./pages/TaskListPage";
+import SuggestedTask from "./pages/SuggestedTaskPage";
 import {
   onSnapshot,
   doc,
   getDoc,
   setDoc
 } from "firebase/firestore"
-import { todoCollection, db } from "../firebase";
+import { todoCollection, db } from "./firebase";
 
 
 export default function TodoListApp() {

@@ -1,5 +1,5 @@
 import React from "react";
-import TodoListApp from "./pages/TodoListApp";
+import TodoListApp from "./TodoListApp";
 
 export default function App() {
   return (

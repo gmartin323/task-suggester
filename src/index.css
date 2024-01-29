@@ -55,6 +55,7 @@ body {
   background-color: #6D53EE;
   font-family: 'Shrikhand', serif;
   font-size: 1rem;
+  letter-spacing: 1px;
 }
 
 .todo-complete-btn {
@@ -126,6 +127,7 @@ body {
   background-color: inherit;
 }
 
+.add-task-btn,
 .suggest-task-btn {
   color: #F6F5FF;
   width: 50%;
