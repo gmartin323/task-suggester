@@ -1,0 +1,20 @@
+{
+  "name": "Task Suggester",
+  "short_name": "Tasks",
+  "start_url": "index.html",
+  "icons": [
+    {
+      "src": "src/images/AppIcons/Assets.xcassets/AppIcon.appiconset/196.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "src/images/AppIcons/Assets.xcassets/AppIcon.appiconset/512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#F6F5FF",
+  "display": "standalone",
+  "theme_color": "#6D53EE"
+ }
